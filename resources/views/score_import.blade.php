@@ -25,14 +25,14 @@
                     </div>
                 </div>
                 <div class="mt-2">
-                    <a class="" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">CSVダウンロード手順</a>
+                    <a class="" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#csvDownload">CSVダウンロード手順</a>
                 </div>
-                <!-- モーダルの設定 -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+                {{-- モーダルの設定 --}}
+                <div class="modal fade" id="csvDownload" tabindex="-1" aria-labelledby="ModalLabel">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">CSVダウンロード手順</h1>
+                                <h1 class="modal-title fs-5" id="ModalLabel">CSVダウンロード手順</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                             </div>
                             <div class="modal-body">
@@ -48,10 +48,10 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-                            </div><!-- /.modal-footer -->
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {{-- バリデーションエラー表示 --}}
                 @foreach ($errors->all() as $error)

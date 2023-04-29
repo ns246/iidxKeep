@@ -8,24 +8,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\dj_data;
 
-class ProfileController extends Controller
+class AdminController extends Controller
 {
 	public function __construct()
 	{
 		$this->middleware('auth');
 	}
 
-	public function Index()
+	public function Dashboard()
 	{
 		$id = Auth::id();
-		$user = '';
-		$user_id = '';
-		$djdata = '';
-
-		if ($id > 0) {
-			$djdata = DB::table('dj_datas')->where('id', $id)->first();
+		$authority = Auth::user()->{'authority'};
+		if ($authority !== 1) {
+			return redirect()->route('index');
 		}
-		return view('Profile/profile', compact('djdata'));
+
+		$registAccounts = DB::table('users')->get();
+		$registScores = DB::table('scores_sp')->get();
+
+		return view('dashboard', compact('id', 'registAccounts','registScores'));
 	}
 
 	public function ProfileEdit()
@@ -85,5 +86,50 @@ class ProfileController extends Controller
 		// 二重送信対策 トークン再発行
 		$request->session()->regenerateToken();
 		return redirect()->route('profile');
+	}
+
+	public function AdminProfileSend(Request $request)
+	{
+		$id = $request->id;
+		// バリデーション
+		$request->validate([
+			'name' => 'required', 'string', 'max:63',
+			'email' => 'required', 'string', 'email:strict,dns,spoof', 'max:255',
+		]);
+
+		// DBにユーザが存在しているか確認
+		$check_id = DB::table('users')->where('id', $id)->first();
+		$data = $request->all();
+
+		if (is_null($check_id)) {
+		} else {
+			// $profile->edit_dj_datas($data, $id);
+			DB::table('users')->where('id', $id)->update([
+				'name' => $data['name'],
+				'email' => $data['email'],
+				'updated_at' => now(),
+			]);
+		}
+
+		// 二重送信対策 トークン再発行
+		$request->session()->regenerateToken();
+		return redirect()->route('dashboard');
+	}
+
+	public function AdminAccountDelete(Request $request)
+	{
+		$id = $request->id;
+		$user = DB::table('users')->find($id);
+		$score_sp = DB::table('scores_sp')->find($id);
+		// $score_dp = DB::table('scores_dp')->find($id);
+
+		if (!empty($user)) {
+			DB::table('users')->where('id', $id)->delete();
+		}
+		if (!empty($score_sp)) {
+			DB::table('$score_sp')->where('uid', $id)->delete();
+		}
+
+		return redirect()->route('dashboard');
 	}
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ScoreimportController;
 use App\Http\Controllers\ScoreViewController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,6 +68,11 @@ Route::get('/version/{ver}', [ScoreViewController::class,'VersionView'])->where(
 Route::get('/account/profile', [UsersController::class,'Index'])->name('account.profile');
 Route::get('/account/edit', [UsersController::class,'ProfileEdit'])->name('account.edit');
 Route::post('/account/update', [UsersController::class,'ProfileSend'])->name('account.update');
+// DASHBOARD
+Route::get('/dashboard', [AdminController::class,'Dashboard'])->name('dashboard');
+Route::post('/admin/profile/update', [AdminController::class,'AdminProfileSend'])->name('admin.accountUpdate');
+Route::post('/admin/profile/delete', [AdminController::class,'AdminAccountDelete'])->name('admin.accountDelete');
+
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');

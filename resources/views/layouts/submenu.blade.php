@@ -144,7 +144,7 @@
                     VERSION
                 </button>
                 <div class="collapse" id="version-collapse">
-                    <div  class="mb-3 d-inline-flex">
+                    <div class="mb-3 d-inline-flex">
                         <select class="form-select ms-4 pe-2 pb-1" style="width:210px" id="VersionSelect">
                             <option value="{{ route('index') }}/version/30">RESIDENT</option>
                             <option value="{{ route('index') }}/version/29">CastHour</option>
@@ -183,7 +183,6 @@
                 </div>
             </li>
 
-            {{-- <li class="border-top my-3"></li> --}}
             <li class="mb-1">
                 <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
                     data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
@@ -191,14 +190,28 @@
                 </button>
                 <div class="collapse" id="account-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="#"
-                                class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
                                 onclick="location.href='{{ route('account.profile') }}'">Profile</a></li>
-                        <li><a href="#"
-                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Settings</a></li>
                     </ul>
                 </div>
             </li>
+            @if (!empty(Auth::id()))
+                @if (Auth::user()->{'authority'} === 1)
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false">
+                            ADMIN
+                        </button>
+                        <div class="collapse" id="admin-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="#"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                        onclick="location.href='{{ route('dashboard') }}'">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+            @endif
         </ul>
     </div>
 @endsection

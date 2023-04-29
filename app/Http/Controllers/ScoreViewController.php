@@ -247,9 +247,6 @@ class ScoreViewController extends Controller
 
 	public function VersionView(int $ver)
 	{
-		if (!empty($ver)) {
-			$ver = 30;
-		}
 		$id = Auth::id();
 		$musicLists = new MusicList;
 		$musiclistUnion =  $musicLists->musicVersionUnion($ver)->paginate($this->per_page);

@@ -10,10 +10,6 @@ use App\Models\dj_data;
 
 class UsersController extends Controller
 {
-	private $djdata;
-	private $user_id;
-	private $user;
-
 	public function __construct()
 	{
 		$this->middleware('auth');
@@ -71,4 +67,5 @@ class UsersController extends Controller
 		$request->session()->regenerateToken();
 		return redirect()->route('account.profile');
 	}
+	
 }
