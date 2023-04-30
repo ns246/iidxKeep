@@ -3,3 +3,9 @@
 
 # 概要
 beatmania IIDXのスコアを管理するWebアプリケーション
+
+# テストアカウント
+|権限|メールアドレス|パスワード|
+|:---|:---|:---|
+|管理者|admin@example.com|testtest|
+|ユーザ|user@example.com|testtest|
